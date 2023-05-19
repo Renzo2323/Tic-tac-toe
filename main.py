@@ -83,10 +83,6 @@ def isBoardFull(board):
     else:
         return False
 
-def hello(move, board, player):
-    return makeMove(board, move, player)
-
-
 def main():
 
     board = newBoard()

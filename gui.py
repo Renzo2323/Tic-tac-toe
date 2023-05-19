@@ -8,6 +8,7 @@ import main
 
 window = Tk()
 window.title("Tic tac toe")
+window.iconbitmap(default="images/icon.ico")
 
 imageNone = ImageTk.PhotoImage(Image.open('images/Empty.png').resize((100, 100)))
 imageO = ImageTk.PhotoImage(Image.open('images/O.png').resize((100, 100)))
@@ -39,19 +40,16 @@ def renderBoard(board):
             boardSquares.append(button)
 
 def buttonClick(index):
-    print(index)
     global player
-    newBoard = main.hello(index, board, player)
+    newBoard = main.makeMove(board, index, player)
     renderBoard(newBoard)
     winner = main.getWinner(newBoard)
 
     if winner is not None:
-        print("Hurray!", winner, "wins!")
         #end
         openAlertWindow(winner + " wins!")
 
     if main.isBoardFull(newBoard):
-        print("Draw")
         openAlertWindow("Draw")
         #end
     
@@ -74,7 +72,8 @@ class AlertWindow(Toplevel):
         super().__init__()
         self.grab_set()
         self.geometry("200x100")
-        self.title("Error")
+        self.title("")
+        
 
         self.grid_columnconfigure(0, weight=1)
         self.messageText = Label(self, text=message)
