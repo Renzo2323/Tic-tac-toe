@@ -1,5 +1,8 @@
 import re
 
+#Run this script to use the command-line interface, or alternatively, 
+#run gui.py to use a graphical user interface
+
 def newBoard():
     return [[None, None, None],
             [None, None, None],
@@ -80,38 +83,42 @@ def isBoardFull(board):
     else:
         return False
 
-
-board = newBoard()
-
-
-render(board)
-
-player = 'X'
-while True:
+def hello(move, board, player):
+    return makeMove(board, move, player)
 
 
-    while True:
-        try:
-            move = getMove(player)
-            board = makeMove(board, move, player)
-            break
-        except Exception as e:
-            print(e)
+def main():
+
+    board = newBoard()
 
     render(board)
 
-    winner = getWinner(board)
-    if winner is not None:
-        print("Hurray!", winner, "wins!")
-        break
+    player = 'X'
+    while True:
+        while True:
+            try:
+                move = getMove(player)
+                board = makeMove(board, move, player)
+                break
+            except Exception as e:
+                print(e)
 
-    if isBoardFull(board):
-        print("Draw")
-        break
+        render(board)
+
+        winner = getWinner(board)
+        if winner is not None:
+            print("Hurray!", winner, "wins!")
+            break
+
+        if isBoardFull(board):
+            print("Draw")
+            break
 
 
-    if(player == 'X'):
-        player = 'O'
-    else:
-        player = 'X'
+        if(player == 'X'):
+            player = 'O'
+        else:
+            player = 'X'
 
+if __name__ == "__main__":
+    main()
